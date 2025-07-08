@@ -1,0 +1,70 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    long long N, M;
+    cin >> N >> M;
+    string S;
+    cin >> S;
+    long long A[N];
+    long long sum = 0;
+
+    for (long long i = 0; i < N; i++){
+        cin >> A[i];
+        sum += A[i];
+    }
+    for(int i = 1; i < N - 1; i++){
+        if(S[i] == 'R' && S[i + 1] == 'L'){
+            int j = i - 1;
+            long long tmp = 0;
+            while(S[j] == 'R'){
+                tmp += A[j];
+                if(j == 0){
+                    j = N - 1;
+                }else{
+                    j--;
+                }
+            }
+        sum -= min(tmp, M);
+        j = i + 2;
+        tmp = 0;
+        while(S[j] == 'L'){
+            tmp += A[j];
+            if(j == N - 1){
+                j = 0;
+            }else{
+                j++;
+            }
+        }
+        sum -= min(tmp, M);
+        }
+    }
+    if(S[N - 1] == 'R' && S[0] == 'L'){
+        int j = N - 2;
+        long long tmp = 0;
+        while(S[j] == 'R'){
+            tmp += A[j];
+            if(j == 0){
+                j = N - 1;
+            }else{
+                j--;
+            }
+        }
+        sum -= min(tmp, M);
+        j = 1;
+        tmp = 0;
+        while(S[j] == 'L'){
+            tmp += A[j];
+            if(j == N - 1){
+                j = 0;
+            }else{
+                j++;
+            }
+        }
+        sum -= min(tmp, M);
+    }
+    
+    cout << sum;
+    
+    return 0;
+}
