@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int N, Q;
+int V, S;
+int maxv = -1;
+int minv = 1000100;
+int first[200010];
+
+int getans(int v, int s){
+    int cnt = 0;
+    cnt += first[0];
+    
+    for (int i = 1; i <= s; i++){
+        if(first[i] != 0){
+            cnt += first[i];
+        }
+    }
+
+    return N - cnt >= v;
+}
+
+int main(){
+
+    cin >> N >> Q;
+    int c[N + 10];
+    int t[N + 10];
+    int dif[N + 10];
+
+    for (int i = 1; i <= N; i++){
+        cin >> c[i];
+    }
+
+    for (int i = 1; i <= N; i++){
+        cin >> t[i];
+    }
+
+    for (int i = 1; i <= N; i++){
+        dif[i] = c[i] - t[i];
+
+        if(dif[i] < 0){
+            first[0]++;
+        }else{
+            minv = min(minv, dif[i]);
+            maxv = max(maxv, dif[i]);
+            first[dif[i]] += 1;
+        }
+    }
+
+    for (int i = 0; i < Q; i++){
+        cin >> V >> S;
+
+        if(getans(V, S)){
+            cout << "YES\n";
+        }else{
+            cout << "NO\n";
+        }
+    }
+
+    return 0;
+}
